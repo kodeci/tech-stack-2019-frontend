@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { login } from '../apis/auth0';
 
 const API = 'http://localhost:3000';
 
@@ -35,11 +36,16 @@ class App extends PureComponent {
     */
    return (
     <button
+      onClick={this.handleLoginClick}
       type="button"
     >
-      hello
+      Login
     </button>
    );
+  }
+
+  private handleLoginClick = () => {
+    login();
   }
 }
 
