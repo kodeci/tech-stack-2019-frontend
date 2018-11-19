@@ -7,6 +7,7 @@ module.exports = (env) => ({
   devtool: env.NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
   devServer: {
     contentBase: './dist',
+    historyApiFallback: true,
   },
   module: {
     rules: [
