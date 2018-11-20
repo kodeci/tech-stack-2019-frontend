@@ -40,6 +40,6 @@ export default (state: number = counterInitialState, action: AppAction) => {
 };
 
 // SELECTORS
-export const getCounter = (state: AppState) => {
+export const counterGet = (state: AppState) => {
   return state.counter;
 };

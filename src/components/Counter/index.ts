@@ -1,8 +1,8 @@
 import {
   counterDecrement,
+  counterGet,
   counterIncrement,
   CounterState,
-  getCounter,
 } from 'DUCKS/counter';
 import { connect } from 'react-redux';
 import AppState from 'STORE/AppState';
@@ -18,7 +18,7 @@ export interface DispatchProps {
 }
 
 const mapStateToProps = (state: AppState) => ({
-  counter: getCounter(state),
+  counter: counterGet(state),
 });
 
 const mapDispatchToProps = {
