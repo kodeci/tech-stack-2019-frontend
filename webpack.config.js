@@ -18,6 +18,11 @@ module.exports = (env) => ({
     ]
   },
   resolve: {
+    alias: {
+      COMPONENTS: path.resolve(__dirname, 'src/components/'),
+      DUCKS: path.resolve(__dirname, 'src/ducks/'),
+      STORE: path.resolve(__dirname, 'src/store/'),
+    },
     extensions: [ '.tsx', '.ts', '.js' ]
   },
   output: {
