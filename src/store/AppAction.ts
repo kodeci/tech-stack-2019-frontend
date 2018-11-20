@@ -1,4 +1,5 @@
 import { CounterDecrementAction, CounterIncrementAction } from 'DUCKS/counter';
+import { HelloFetchRequestAction, HelloFetchResponseAction } from 'DUCKS/hello';
 
 const UNKNOWN = 'UNKNOWN';
 
@@ -13,6 +14,8 @@ export const unknown = (): UnknownAction => ({
 type AppAction =
   | CounterDecrementAction
   | CounterIncrementAction
+  | HelloFetchRequestAction
+  | HelloFetchResponseAction
   | UnknownAction;
 
 export default AppAction;

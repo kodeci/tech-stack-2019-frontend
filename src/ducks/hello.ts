@@ -1,4 +1,6 @@
+import { combineReducers, Dispatch } from 'redux';
 import AppAction from 'STORE/AppAction';
+import AppState from 'STORE/AppState';
 
 const API = 'http://localhost:3000';
 
@@ -36,93 +38,59 @@ const helloFetchResponse = (
         type: HELLO_FETCH_RESPONSE,
       };
 
-export const helloFetch = () => async (dispatch: any) => {
-  const response = await fetch(API);
-  const { hello } = await response.json();
-};
-/*
-// TODO: DISPATCH
-export const helloFetch = () => async (dispatch: (action: AppAction) => void) => {
-  dispatch(fetchTodosRequest());
+export const helloFetch = () => async (dispatch: Dispatch<AppAction>) => {
+  dispatch(helloFetchRequest());
   try {
-    const json = await fromTodos.fetchTodos();
-    const reducer = (accumulator: List<Todo>, jsonTodo: TodoJS) =>
-      accumulator.push(new Todo(jsonTodo));
-    const todos = json.reduce(reducer, List<Todo>([])) as List<Todo>;
-    dispatch(fetchTodosResponse(todos));
+    const response = await fetch(API);
+    const { hello } = await response.json();
+    dispatch(helloFetchResponse(hello));
   } catch {
-    dispatch(fetchTodosResponse('500', true));
+    dispatch(helloFetchResponse('500', true));
   }
 };
-*/
 
-/*
-import * as fromTodos from 'APIS/todos';
-import { List, Map } from 'immutable';
-import { combineReducers } from 'redux-immutable';
-import { createSelector } from 'reselect';
-import AppAction from 'STORE/AppAction';
-import AppState from 'STORE/AppState';
-import Todo, { TodoJS } from './Todo';
+// STATE
+export interface HelloState {
+  errored: boolean;
+  requested: boolean;
+  value: string;
+}
 
-export const fetchTodos = () => async (dispatch: (action: AppAction) => void) => {
-  dispatch(fetchTodosRequest());
-  try {
-    const json = await fromTodos.fetchTodos();
-    const reducer = (accumulator: List<Todo>, jsonTodo: TodoJS) =>
-      accumulator.push(new Todo(jsonTodo));
-    const todos = json.reduce(reducer, List<Todo>([])) as List<Todo>;
-    dispatch(fetchTodosResponse(todos));
-  } catch {
-    dispatch(fetchTodosResponse('500', true));
-  }
+const helloInitialState = {
+  errored: false,
+  requested: false,
+  value: '',
 };
 
 // REDUCER
-const requested = (state: boolean, action: AppAction) => {
+const requested = (state: boolean = helloInitialState.requested, action: AppAction) => {
   switch (action.type) {
-    case FETCH_TODOS_REQUEST:
+    case HELLO_FETCH_REQUEST:
       return true;
-    case FETCH_TODOS_RESPONSE:
+    case HELLO_FETCH_RESPONSE:
       return false;
     default:
       return state;
   }
 };
 
-const byId = (state: Map<number, Todo>, action: AppAction) => {
+const value = (state: string = helloInitialState.value, action: AppAction) => {
   switch (action.type) {
-    case FETCH_TODOS_RESPONSE:
+    case HELLO_FETCH_RESPONSE:
       if (action.error) {
         return state;
       }
-      const reducer = (accumulator: Map<number, Todo>, todo: Todo) =>
-        accumulator.set(todo.get('id'), todo);
-      const payload = action.payload as List<Todo>;
-      return payload.reduce(reducer, state);
+      return action.payload;
     default:
       return state;
   }
 };
 
-const ids = (state: List<number>, action: AppAction) => {
+const errored = (state: boolean = helloInitialState.errored, action: AppAction) => {
   switch (action.type) {
-    case FETCH_TODOS_RESPONSE:
-      if (action.error) {
-        return state;
-      }
-      const payload = action.payload as List<Todo>;
-      return List(payload.map((o: Todo) => o.get('id')));
-    default:
-      return state;
-  }
-};
-
-const errored = (state: boolean, action: AppAction) => {
-  switch (action.type) {
-    case FETCH_TODOS_REQUEST:
+    case HELLO_FETCH_REQUEST:
       return false;
-    case FETCH_TODOS_RESPONSE:
+    case HELLO_FETCH_RESPONSE:
       return action.error ? true : false;
     default:
       return state;
@@ -130,30 +98,14 @@ const errored = (state: boolean, action: AppAction) => {
 };
 
 export default combineReducers({
-  byId,
   errored,
-  ids,
   requested,
+  value,
 });
 
 // SELECTORS
-export const getTodosRequested = (state: AppState) => state.get('todos').get('requested');
+export const helloGetRequested = (state: AppState) => state.hello.requested;
 
-export const getTodosError = (state: AppState) => state.get('todos').get('errored');
+export const helloGetError = (state: AppState) => state.hello.errored;
 
-export const getTodo = (state: AppState, id: number) => {
-  return state
-    .get('todos')
-    .get('byId')
-    .get(id);
-};
-
-const getTodosById = (state: AppState) => state.get('todos').get('byId');
-
-const getTodosIds = (state: AppState) => state.get('todos').get('ids');
-
-export const getTodos = createSelector(
-  [getTodosById, getTodosIds],
-  (pById, pIds) => pIds.map(o => pById.get(o)) as List<Todo>
-);
-*/
+export const helloGet = (state: AppState) => state.hello.value;

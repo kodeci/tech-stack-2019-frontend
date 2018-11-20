@@ -1,9 +1,11 @@
 import counter from 'DUCKS/counter';
+import hello from 'DUCKS/hello';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import reduxThunk from 'redux-thunk';
 
 const reducers = combineReducers({
   counter,
+  hello,
 });
 
 const middlewares = [reduxThunk];
