@@ -9,6 +9,10 @@
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
     "baseUrl": ".",
     "paths": {
       "COMPONENTS/*": [
