@@ -23,7 +23,7 @@ module.exports = (env) => ({
       DUCKS: path.resolve(__dirname, 'src/ducks/'),
       STORE: path.resolve(__dirname, 'src/store/'),
     },
-    extensions: [ '.tsx', '.ts', '.js' ]
+    extensions: [ '.tsx', '.ts', '.mjs', '.js' ]
   },
   output: {
     filename: 'bundle.js',
