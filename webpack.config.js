@@ -14,8 +14,20 @@ module.exports = (env) => ({
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
-      }
-    ]
+      }, 
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
+        ],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader'
+        ],
+      },
+    ],
   },
   resolve: {
     extensions: [ '.tsx', '.ts', '.mjs', '.js' ]

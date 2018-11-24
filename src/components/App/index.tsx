@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import cat from './cat.jpg';
 
 const API = 'http://localhost:3000';
 
@@ -26,7 +27,12 @@ class App extends PureComponent {
     const { errored, fetching, hello } = this.state;
     if (fetching) { return <div>fetching</div>; }
     if (errored) { return <div>errored</div>; }
-    return <div>hello {hello}</div>;
+    return (
+      <div>
+        <div>hello {hello}</div>
+        <img src={cat} />
+      </div>
+    );
   }
 }
 
