@@ -16,6 +16,22 @@ module.exports = (env) => ({
         exclude: /node_modules/
       }, 
       {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'typings-for-css-modules-loader',
+            options: {
+              localIdentName: env.NODE_ENV === 'production'
+              ? '[hash:base64]'
+              : '[name]__[local]__[hash:base64:5]',
+              modules: true,
+              namedExport: true,
+            },
+          }
+        ],
+      },
+      {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
           'file-loader'

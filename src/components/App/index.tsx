@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import cat from './cat.jpg';
+import styles from './styles.css';
 
 const API = 'http://localhost:3000';
 
@@ -29,7 +30,7 @@ class App extends PureComponent {
     if (errored) { return <div>errored</div>; }
     return (
       <div>
-        <div>hello {hello}</div>
+        <div className={styles.hello}>hello {hello}</div>
         <img src={cat} />
       </div>
     );
