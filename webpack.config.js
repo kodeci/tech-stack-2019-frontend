@@ -24,6 +24,7 @@ module.exports = (env) => ({
   },
   output: {
     filename: env.NODE_ENV === 'production' ? '[name].[chunkhash].bundle.js' : '[name].bundle.js',
+    chunkFilename: env.NODE_ENV === 'production' ? '[name].[chunkhash].bundle.js' : '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
