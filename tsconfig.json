@@ -5,14 +5,14 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "es6",
+    "module": "esnext",
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
     "lib": [
       "es2015",
       "dom"
-    ]
+    ],
   }
 }
 

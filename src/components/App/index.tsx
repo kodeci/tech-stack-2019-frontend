@@ -1,6 +1,4 @@
 import React, { PureComponent } from 'react';
-import ChartA from './ChartA';
-import ChartB from './ChartB';
 
 const API = 'http://localhost:3000';
 
@@ -11,6 +9,8 @@ class App extends PureComponent {
     hello: '',
     route: 'hello',
   };
+
+  private content: JSX.Element;
 
   public async componentDidMount() {
     try {
@@ -29,17 +29,7 @@ class App extends PureComponent {
     const { errored, fetching, hello, route } = this.state;
     if (fetching) { return <div>fetching</div>; }
     if (errored) { return <div>errored</div>; }
-    let content: JSX.Element;
-    switch (route) {
-      case 'charta':
-        content = <ChartA />;
-        break;
-      case 'chartb':
-        content = <ChartB />;
-        break;
-      default:
-        content = <div>hello {hello}</div>;
-    }
+    if (route === 'hello') { this.content = <div>hello {hello}</div>; }
     return (
       <div>
         <div>
@@ -62,16 +52,24 @@ class App extends PureComponent {
             ChartB
           </button>
         </div>
-        {content}
+        {this.content}
       </div>
     );
   }
 
   private handleHelloClick = () => this.setState({ route: 'hello' });
 
-  private handleChartAClick = () => this.setState({ route: 'charta' });
+  private handleChartAClick = async () => {
+    const { default: ChartA } = await import('./ChartA');
+    this.content = <div><ChartA /></div>;
+    this.setState({ route: 'charta' });
+  }
 
-  private handleChartBClick = () => this.setState({ route: 'chartb' });
+  private handleChartBClick = async () => {
+    const { default: ChartB } = await import('./ChartB');
+    this.content = <div><ChartB /></div>;
+    this.setState({ route: 'chartb' });
+  }
 }
 
 export default App;
