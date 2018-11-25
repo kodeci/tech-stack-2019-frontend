@@ -23,7 +23,7 @@ module.exports = (env) => ({
     extensions: [ '.tsx', '.ts', '.mjs', '.js' ]
   },
   output: {
-    filename: 'bundle.js',
+    filename: env.NODE_ENV === 'production' ? '[name].[chunkhash].bundle.js' : '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
