@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --open --env.NODE_ENV=development",
     "build": "webpack --env.NODE_ENV=production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
   },
   "author": "",
   "license": "ISC",
